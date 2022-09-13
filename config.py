@@ -10,6 +10,6 @@ HOST = "127.0.0.1"
 PORT = "5436"
 
 # ------------------------
-SCHEMA_NAME = "\"ItemStorage\""
-TBL_SystemItem = "\"SystemItem\""
+SCHEMA_NAME = "ItemStorage"
+TBL_SystemItem = "SystemItem"
 TBL_SystemItemHistory = "SystemItemHistory"

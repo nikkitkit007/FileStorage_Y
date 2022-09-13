@@ -271,10 +271,10 @@ def test_delete():
 
 def test_all():
     # test_import()
-    # test_nodes()
-    # test_updates()
+    test_nodes()
+    test_updates()
     test_history()
-    # test_delete()
+    test_delete()
 
 
 def main():

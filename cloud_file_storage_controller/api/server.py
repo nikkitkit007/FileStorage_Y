@@ -2,8 +2,11 @@ import sys
 from datetime import datetime, timedelta
 import flask
 from flask import Flask, request
-from cloud_file_storage_controller.db.db_controller import create_db
-from cloud_file_storage_controller.db.schema_db import SystemItem, SystemItemHistory
+
+from cloud_file_storage_controller.db.db_controller import DataBaseSchema
+from cloud_file_storage_controller.db.systemItemHistory_table import SystemItemHistory
+from cloud_file_storage_controller.db.systemItem_table import SystemItem
+
 from typing import Tuple
 import config
 
@@ -39,7 +42,7 @@ def delete(file_id):
             return flask.make_response({"code": 404, "message": "Item not found"}), 404
         return '', 200
     except Exception as E:
-        # error_logger(E)
+        error_logger.error(E)
         return flask.make_response({"code": 400, "message": "Validation Failed"}), 400
 
 
@@ -52,7 +55,7 @@ def nodes(parent_id):
         parent['children'] = SystemItem.get_children({"id": parent_id})
         return flask.make_response(parent), 200
     except Exception as E:
-        # error_logger(E)
+        error_logger.error(E)
         return flask.make_response({"code": 400, "message": "Validation Failed"}), 400
 
 
@@ -64,7 +67,7 @@ def updates():
         items = SystemItem.get_items_in_interval(one_day_before.isoformat(), time_now.isoformat())
         return flask.make_response(items), 200
     except Exception as E:
-        error_logger(E)
+        error_logger.error(E)
         return flask.make_response({"code": 400, "message": "Validation Failed"})
 
 
@@ -76,14 +79,12 @@ def nodes_history(node_id):
         history = SystemItemHistory.get_items_in_interval(node_id, one_day_before.isoformat(), time_now.isoformat())
         return flask.make_response(history), 200
     except Exception as E:
-        error_logger(E)
+        error_logger.error(E)
         return flask.make_response({"code": 400, "message": "Validation Failed"})
-    # except Exception as E:
-    #     return flask.make_response({"code": 404, "message": "Item not found"})        # TODO: add this except
 
 
 def main():
-    create_db()
+    DataBaseSchema.create_db()
     app.run(host=config.HOST_ADDRESS, port=config.HOST_PORT)
 
 
