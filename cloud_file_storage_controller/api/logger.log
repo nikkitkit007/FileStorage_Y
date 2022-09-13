@@ -1,0 +1,70 @@
+ERROR : [2022-09-13 16:54:41,380] imports: 'url'
+ERROR : [2022-09-13 16:55:58,037] imports: 'url'
+ERROR : [2022-09-13 16:57:23,898] imports: 'url'
+ERROR : [2022-09-13 17:04:55,678] imports: 
+ERROR : [2022-09-13 17:09:09,477] imports: 
+ERROR : [2022-09-13 17:10:59,614] imports: (psycopg2.errors.NotNullViolation) null value in column "size" of relation "SystemItem" violates not-null constraint
+DETAIL:  Failing row contains (069cb8d7-bbdd-47d3-ad8f-82ef4c269df1, null, 2022-02-01 12:00:00, null, FOLDER, null).
+
+[SQL: INSERT INTO "ItemStorage"."SystemItem" (id, url, date, "parentId", type, size) VALUES (%(id)s, %(url)s, %(date)s, %(parentId)s, %(type)s, %(size)s)]
+[parameters: {'id': '069cb8d7-bbdd-47d3-ad8f-82ef4c269df1', 'url': None, 'date': '2022-02-01T12:00:00Z', 'parentId': None, 'type': 'FOLDER', 'size': None}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+ERROR : [2022-09-13 17:12:26,488] imports: (psycopg2.errors.NotNullViolation) null value in column "size" of relation "SystemItem" violates not-null constraint
+DETAIL:  Failing row contains (069cb8d7-bbdd-47d3-ad8f-82ef4c269df1, null, 2022-02-01 12:00:00, null, FOLDER, null).
+
+[SQL: INSERT INTO "ItemStorage"."SystemItem" (id, url, date, "parentId", type, size) VALUES (%(id)s, %(url)s, %(date)s, %(parentId)s, %(type)s, %(size)s)]
+[parameters: {'id': '069cb8d7-bbdd-47d3-ad8f-82ef4c269df1', 'url': None, 'date': '2022-02-01T12:00:00Z', 'parentId': None, 'type': 'FOLDER', 'size': None}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+ERROR : [2022-09-13 17:13:02,031] imports: (psycopg2.errors.NotNullViolation) null value in column "size" of relation "SystemItem" violates not-null constraint
+DETAIL:  Failing row contains (069cb8d7-bbdd-47d3-ad8f-82ef4c269df1, null, 2022-02-01 12:00:00, null, FOLDER, null).
+
+[SQL: INSERT INTO "ItemStorage"."SystemItem" (id, url, date, "parentId", type, size) VALUES (%(id)s, %(url)s, %(date)s, %(parentId)s, %(type)s, %(size)s)]
+[parameters: {'id': '069cb8d7-bbdd-47d3-ad8f-82ef4c269df1', 'url': None, 'date': '2022-02-01T12:00:00Z', 'parentId': None, 'type': 'FOLDER', 'size': None}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+ERROR : [2022-09-13 17:13:49,335] imports: (psycopg2.errors.NotNullViolation) null value in column "size" of relation "SystemItem" violates not-null constraint
+DETAIL:  Failing row contains (069cb8d7-bbdd-47d3-ad8f-82ef4c269df1, null, 2022-02-01 12:00:00, null, FOLDER, null).
+
+[SQL: INSERT INTO "ItemStorage"."SystemItem" (id, url, date, "parentId", type, size) VALUES (%(id)s, %(url)s, %(date)s, %(parentId)s, %(type)s, %(size)s)]
+[parameters: {'id': '069cb8d7-bbdd-47d3-ad8f-82ef4c269df1', 'url': None, 'date': '2022-02-01T12:00:00Z', 'parentId': None, 'type': 'FOLDER', 'size': None}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+ERROR : [2022-09-13 17:53:25,839] imports: 'url'
+ERROR : [2022-09-13 17:54:35,704] imports: 'url'
+ERROR : [2022-09-13 17:55:10,926] imports: 'url'
+ERROR : [2022-09-13 17:59:01,060] imports: 'url'
+ERROR : [2022-09-13 20:15:13,015] imports: (psycopg2.errors.UndefinedTable) relation "r" does not exist
+LINE 4:             in (SELECT "parentId" FROM r)
+                                               ^
+QUERY:  UPDATE "ItemStorage"."SystemItem"
+            SET "date" = date_upd
+            WHERE "ItemStorage"."SystemItem"."id"
+            in (SELECT "parentId" FROM r)
+CONTEXT:  PL/pgSQL function "ItemStorage".upd_date(character varying,timestamp without time zone) line 20 at SQL statement
+SQL statement "SELECT "ItemStorage".upd_date(NEW."id", NEW."date")"
+PL/pgSQL function "ItemStorage".insert_dependencies() line 4 at PERFORM
+
+[SQL: INSERT INTO "ItemStorage"."SystemItem" (id, url, date, "parentId", type, size) VALUES (%(id)s, %(url)s, %(date)s, %(parentId)s, %(type)s, %(size)s)]
+[parameters: {'id': '069cb8d7-bbdd-47d3-ad8f-82ef4c269df1', 'url': None, 'date': '2022-02-01T12:00:00Z', 'parentId': None, 'type': 'FOLDER', 'size': 0}]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+ERROR : [2022-09-13 20:18:29,838] imports: (psycopg2.errors.UndefinedTable) relation "r" does not exist
+LINE 4:             in (SELECT "parentId" FROM r)
+                                               ^
+QUERY:  UPDATE "ItemStorage"."SystemItem"
+            SET "date" = date_upd
+            WHERE "ItemStorage"."SystemItem"."id"
+            in (SELECT "parentId" FROM r)
+CONTEXT:  PL/pgSQL function "ItemStorage".upd_date(character varying,timestamp without time zone) line 20 at SQL statement
+SQL statement "SELECT "ItemStorage".upd_date(NEW."id", NEW."date")"
+PL/pgSQL function "ItemStorage".insert_dependencies() line 4 at PERFORM
+
+[SQL: INSERT INTO "ItemStorage"."SystemItem" (id, url, date, "parentId", type, size) VALUES (%(id)s, %(url)s, %(date)s, %(parentId)s, %(type)s, %(size)s)]
+[parameters: {'id': '069cb8d7-bbdd-47d3-ad8f-82ef4c269df1', 'url': None, 'date': '2022-02-01T12:00:00Z', 'parentId': None, 'type': 'FOLDER', 'size': 0}]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+ERROR : [2022-09-13 20:35:56,258] imports: (psycopg2.errors.SyntaxError) query has no destination for result data
+HINT:  If you want to discard the results of a SELECT, use PERFORM instead.
+CONTEXT:  PL/pgSQL function "ItemStorage".upd_date(character varying,timestamp without time zone,boolean) line 4 at SQL statement
+SQL statement "SELECT "ItemStorage".upd_date(NEW."id", NEW."date", False)"
+PL/pgSQL function "ItemStorage".insert_dependencies() line 4 at PERFORM
+
+[SQL: INSERT INTO "ItemStorage"."SystemItem" (id, url, date, "parentId", type, size) VALUES (%(id)s, %(url)s, %(date)s, %(parentId)s, %(type)s, %(size)s)]
+[parameters: {'id': '069cb8d7-bbdd-47d3-ad8f-82ef4c269df1', 'url': None, 'date': '2022-02-01T12:00:00Z', 'parentId': None, 'type': 'FOLDER', 'size': 0}]
+(Background on this error at: https://sqlalche.me/e/14/f405)
