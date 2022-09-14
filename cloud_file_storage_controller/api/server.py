@@ -3,9 +3,9 @@ from datetime import datetime, timedelta
 import flask
 from flask import Flask, request
 
-from cloud_file_storage_controller.db.db_controller import DataBaseSchema
-from cloud_file_storage_controller.db.systemItemHistory_table import SystemItemHistory
-from cloud_file_storage_controller.db.systemItem_table import SystemItem
+from cloud_file_storage_controller.db.tableSystemItemHistory import SystemItemHistory
+from cloud_file_storage_controller.db.tableSystemItem import SystemItem
+from cloud_file_storage_controller.db.dataBase import DataBaseSchema
 
 from typing import Tuple
 import config

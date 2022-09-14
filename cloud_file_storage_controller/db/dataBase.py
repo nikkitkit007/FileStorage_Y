@@ -3,9 +3,6 @@ import config
 from sqlalchemy.schema import CreateSchema
 from .base import Base, engine, session
 
-from .systemItemHistory_table import SystemItemHistory
-from .systemItem_table import SystemItem
-
 
 class DataBaseSchema:
 
@@ -149,9 +146,4 @@ class DataBaseSchema:
             DataBaseSchema.create_trigger()
 
 
-def main():
-    pass
 
-
-if __name__ == '__main__':
-    main()
