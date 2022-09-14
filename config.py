@@ -1,13 +1,14 @@
 
 HOST_ADDRESS = "0.0.0.0"
-HOST_PORT = "8080"
+HOST_PORT = "80"
 
 # ------------------------
 DATABASE = "postgres"
 USERNAME = "postgres"
-PASSWORD = "1234"
-HOST = "127.0.0.1"
-PORT = "5436"
+PASSWORD = "postgres"
+HOST = "postgres"
+PORT = "5432"
+# PORT = "5431"
 
 # ------------------------
 SCHEMA_NAME = "ItemStorage"

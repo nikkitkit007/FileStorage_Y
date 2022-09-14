@@ -8,7 +8,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-API_BASEURL = "http://localhost:8080"
+API_BASEURL = "http://127.0.0.1:80"
 
 ROOT_ID = "069cb8d7-bbdd-47d3-ad8f-82ef4c269df1"
 
@@ -214,6 +214,7 @@ def test_import():
         # print(f"Importing batch {index}")
         # print("Batch:", batch)
         status, _ = request("/imports", method="POST", data=batch)
+        print(_)
 
         assert status == 200, f"Expected HTTP status code 200, got {status}"
 
@@ -270,7 +271,7 @@ def test_delete():
 
 
 def test_all():
-    # test_import()
+    test_import()
     test_nodes()
     test_updates()
     test_history()
