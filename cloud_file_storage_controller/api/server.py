@@ -69,9 +69,14 @@ def updates():
 
 
 @app.route('/node/<node_id>/history', methods=["GET"])
-def nodes_history(node_id: str, date_start: str, date_end: str):
+def nodes_history(node_id: str):
     try:
-        # TODO: CHECK ON ISOFORMAT
+        date_start = request.args.get("dateStart")
+        date_end = request.args.get("dateEnd")
+
+        assert datetime.strptime(date_start, "%Y-%m-%dT%H:%M:%SZ")
+        assert datetime.strptime(date_end, "%Y-%m-%dT%H:%M:%SZ")
+
         history = SystemItemHistory.get_items_in_interval(node_id, date_start, date_end)
         return flask.make_response(history), 200
     except Exception as E:
@@ -81,7 +86,7 @@ def nodes_history(node_id: str, date_start: str, date_end: str):
 
 def main():
     DataBaseSchema.create_db()
-    app.run(host=config.HOST_ADDRESS, port=config.HOST_PORT)
+    # app.run(host=config.HOST_ADDRESS, port=config.HOST_PORT)
 
 
 if __name__ == '__main__':

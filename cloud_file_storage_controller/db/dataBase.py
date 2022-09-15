@@ -140,13 +140,10 @@ class DataBaseSchema:
 
     @staticmethod
     def create_db():
-        if not engine.dialect.has_schema(engine, config.SCHEMA_NAME):
-            DataBaseSchema.create_schema()
-        if not engine.dialect.has_table(engine, config.TBL_SystemItemHistory) or\
-                not engine.dialect.has_schema(engine, config.TBL_SystemItem):
-            DataBaseSchema.create_all_tables()
-            DataBaseSchema.create_functions()
-            DataBaseSchema.create_trigger()
+        DataBaseSchema.create_schema()
+        DataBaseSchema.create_all_tables()
+        DataBaseSchema.create_functions()
+        DataBaseSchema.create_trigger()
 
 
 if __name__ == '__main__':

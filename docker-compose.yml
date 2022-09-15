@@ -26,6 +26,8 @@ services:
       - "80:80"
     depends_on:
       - db
+    command:
+      - "python /usr/src/app/cloud_file_storage_controller/api/server.py"
     networks:
       - backend
     restart: always
