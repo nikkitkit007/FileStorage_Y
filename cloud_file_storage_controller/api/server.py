@@ -2,6 +2,7 @@ import sys
 from datetime import datetime, timedelta
 import flask
 from flask import Flask, request
+
 sys.path.append("/usr/src/app/")
 from cloud_file_storage_controller.db.tableSystemItemHistory import SystemItemHistory
 from cloud_file_storage_controller.db.tableSystemItem import SystemItem
@@ -14,7 +15,6 @@ from logger_config import error_logger, info_logger
 
 app = Flask(__name__)
 sys.path.append('../')
-
 
 
 @app.route('/imports', methods=["POST"])
@@ -30,11 +30,13 @@ def imports():
 
 
 @app.route('/delete/<file_id>', methods=["DELETE"])
-def delete(file_id):
+def delete(file_id: str):
     try:
-        deleted_files = SystemItem.delete({"id": file_id})
+        deleted_files = SystemItem.delete(file_id)
         if not deleted_files:
+            info_logger.error({"error": f"System item with id: {file_id} not deleted. Item not found."})
             return flask.make_response({"code": 404, "message": "Item not found"}), 404
+        info_logger.info(f"System item with id: {file_id} deleted")
         return '', 200
     except Exception as E:
         error_logger.error(E)
@@ -67,11 +69,10 @@ def updates():
 
 
 @app.route('/node/<node_id>/history', methods=["GET"])
-def nodes_history(node_id):
+def nodes_history(node_id: str, date_start: str, date_end: str):
     try:
-        time_now = datetime.now()
-        one_day_before = time_now - timedelta(1)
-        history = SystemItemHistory.get_items_in_interval(node_id, one_day_before.isoformat(), time_now.isoformat())
+        # TODO: CHECK ON ISOFORMAT
+        history = SystemItemHistory.get_items_in_interval(node_id, date_start, date_end)
         return flask.make_response(history), 200
     except Exception as E:
         error_logger.error(E)
@@ -80,7 +81,7 @@ def nodes_history(node_id):
 
 def main():
     DataBaseSchema.create_db()
-    # app.run(host=config.HOST_ADDRESS, port=config.HOST_PORT)
+    app.run(host=config.HOST_ADDRESS, port=config.HOST_PORT)
 
 
 if __name__ == '__main__':

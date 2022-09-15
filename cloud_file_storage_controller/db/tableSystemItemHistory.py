@@ -30,18 +30,22 @@ class SystemItemHistory(Base):
         except Exception:
             raise ValueError
 
-    def get_dict(self):
-        atts_dict = {"id": self.id_original,
-                     "url": self.url,
-                     "date": self.date.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                     "parentId": self.parentId,
-                     "type": self.type,
-                     "size": self.size}
+    def get_dict(self) -> dict:
+        try:
+            atts_dict = {"id": self.id_original,
+                         "url": self.url,
+                         "date": self.date.strftime("%Y-%m-%dT%H:%M:%SZ"),
+                         "parentId": self.parentId,
+                         "type": self.type,
+                         "size": self.size}
 
-        return atts_dict
+            return atts_dict
+        except Exception:
+            error_logger.error(Exception)
+            raise Exception
 
     @staticmethod
-    def get_items_in_interval(item_id: str, date_start: str, date_end: str):
+    def get_items_in_interval(item_id: str, date_start: str, date_end: str) -> dict:
         with session(bind=engine) as local_session:
             items = {"items": []}
             items_recent = local_session.query(SystemItemHistory). \

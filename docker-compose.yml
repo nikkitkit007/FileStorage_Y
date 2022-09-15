@@ -13,9 +13,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
-#      - POSTGRES_DB="postgres"
-#      - POSTGRES_USER="postgres"
-#      - POSTGRES_PASSWORD="postgres"
+
     networks:
       - backend
     restart: always
@@ -26,11 +24,6 @@ services:
 #      - .:/code
     ports:
       - "80:80"
-#    environment:
-#      - DATASOURCE_URL
-#      - POSTGRES_NAME=postgres
-#      - POSTGRES_USER=postgres
-#      - POSTGRES_PASSWORD=postgres
     depends_on:
       - db
     networks:

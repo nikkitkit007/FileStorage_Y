@@ -1,6 +1,7 @@
 import config
 import sqlalchemy as sa
 from .base import Base, session, engine
+from logger_config import info_logger, error_logger
 
 
 TYPES = ["FILE", "FOLDER"]
@@ -26,25 +27,34 @@ class SystemItem(Base):
             item_type = system_item_data['type']
             assert item_type in TYPES
             self.type = item_type
-            # if self.type == "FOLDER":
-            #     assert self.url is None and self.size is None
-            # else:
-            #     assert self.url is not None and self.size is not None
         except Exception:
+            error_logger.error(Exception)
             raise ValueError
 
-    def get_dict(self):
-        atts_dict = {"id": self.id,
-                     "url": self.url,
-                     "date": self.date.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                     "parentId": self.parentId,
-                     "type": self.type,
-                     "size": self.size}
-
-        return atts_dict
+    def get_dict(self) -> dict:
+        try:
+            atts_dict = {"id": self.id,
+                         "url": self.url,
+                         "date": self.date.strftime("%Y-%m-%dT%H:%M:%SZ"),
+                         "parentId": self.parentId,
+                         "type": self.type,
+                         "size": self.size}
+            return atts_dict
+        except Exception:
+            error_logger.error(Exception)
+            raise Exception
 
     @staticmethod
-    def add(sys_items_to_add: dict):
+    def get(item_id: str):
+        with session(bind=engine) as local_session:
+            item = local_session.query(SystemItem).filter(SystemItem.id == item_id).first()
+            if item:
+                return SystemItem.get_dict(item)
+            else:
+                return None
+
+    @staticmethod
+    def add(sys_items_to_add: dict) -> None:
         with session(bind=engine) as local_session:
             for sys_item in sys_items_to_add["items"]:
                 sys_item_id = sys_item["id"]
@@ -60,24 +70,19 @@ class SystemItem(Base):
                     local_session.add(SystemItem(sys_item))
 
                 local_session.commit()
+                info_logger.info(f"System item with id:{sys_item_id} added")
 
     @staticmethod
-    def delete(id_item_to_delete: dict):
+    def delete(id_item_to_delete: str) -> bool:
         with session(bind=engine) as local_session:
-            item_to_delete = local_session.query(SystemItem).filter(SystemItem.id == id_item_to_delete["id"]).first()
+            item_to_delete = local_session.query(SystemItem).filter(SystemItem.id == id_item_to_delete).first()
             if item_to_delete:
                 local_session.delete(item_to_delete)
                 local_session.commit()
-        return item_to_delete
-
-    @staticmethod
-    def get(item_id: str):
-        with session(bind=engine) as local_session:
-            item = local_session.query(SystemItem).filter(SystemItem.id == item_id).first()
-            if item:
-                return SystemItem.get_dict(item)
-            else:
-                return None
+        if item_to_delete:
+            return True
+        else:
+            return False
 
     @staticmethod
     def get_children(folder: dict):
@@ -91,7 +96,7 @@ class SystemItem(Base):
         return children if children else None
 
     @staticmethod
-    def get_items_in_interval(date_start: str, date_end: str):
+    def get_items_in_interval(date_start: str, date_end: str) -> dict:
         with session(bind=engine) as local_session:
             items = {"items": []}
             items_recent = local_session.query(SystemItem). \
